@@ -109,7 +109,6 @@ fabric.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -207,7 +206,14 @@ $RECYCLE.BIN/
 
 ### Gradle ###
 .gradle
-**/build/
+**/build/classes
+**/build/generated
+**/build/reports
+**/build/resources
+**/build/test-results
+**/build/tmp
+**/build/bootJarMainClassName
+**/build/bootRunMainClassName
 !src/**/build/
 
 # Ignore Gradle GUI config
