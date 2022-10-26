@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.take-it'
-version = '1.0'
+version = '2.0'
 sourceCompatibility = '11'
 
 repositories {
@@ -17,11 +17,22 @@ ext {
 }
 
 dependencies {
+    // reactive
     implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+
+    // spring cloud gateway
     implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+
+    // local netflix-eureka-client
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     implementation 'org.springframework.cloud:spring-cloud-starter'
 
+    // Distributed Tracing
+    // zipkin + sleuth
+//    implementation 'org.springframework.cloud:spring-cloud-starter-zipkin:2.2.3.RELEASE'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+
+    // jwt
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
 
@@ -39,4 +50,8 @@ dependencyManagement {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+jar {
+    enabled = false
 }
