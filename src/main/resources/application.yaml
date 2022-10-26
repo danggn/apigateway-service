@@ -1,23 +1,15 @@
 server:
   port: 8000
-  ssl:
-    enabled: true
-    key-alias: baeldung
-    key-store: classpath:baeldung.p12
-    key-store-type: PKCS12
-    key-store-password: 1234!@#$
-
-eureka:
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka
 
 spring:
   application:
     name: customer-apigateway-service
-
+#  zipkin:
+#    base-url: http://127.0.0.1:9411
+#    enabled: true
+#  sleuth:
+#    sampler:
+#      probability: 1.0
   cloud:
     gateway:
       default-filters:
@@ -26,23 +18,10 @@ spring:
             baseMessage: Spring Cloud Gateway Global Filter
             preLogger: true
             postLogger: true
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: "https://ec2-13-125-229-74.ap-northeast-2.compute.amazonaws.com:8080"
-            allowedMethods:
-              - GET
-              - POST
-              - DELETE
-              - PUT
-              - OPTIONS
-              - DELETE
-              - PATCH
-            allowedHeaders: '*'
-            allow-credentials: true
+
       routes:
         - id: order-service
-          uri: lb://ORDER-SERVICE
+          uri: http://order-service.default.svc.cluster.local:9200
           predicates:
             - Path=/order-service/**
           filters:
@@ -50,7 +29,7 @@ spring:
             - RewritePath=/order-service/(?<segment>.*),/$\{segment}
 
         - id: store-service
-          uri: lb://STORE-SERVICE
+          uri: http://store-service.default.svc.cluster.local:9300
           predicates:
             - Path=/store-service/**
           filters:
@@ -58,7 +37,7 @@ spring:
             - RewritePath=/store-service/(?<segment>.*),/$\{segment}
 
         - id: notification-service
-          uri: lb://NOTIFICATION-SERVICE
+          uri: http://notification-service.default.svc.cluster.local:9100
           predicates:
             - Path=/notification-service/**
           filters:
@@ -66,47 +45,47 @@ spring:
             - RewritePath=/notification-service/(?<segment>.*),/$\{segment}
 
         - id: user-service
-          uri: lb://USER-SERVICE
+          uri: http://user-service.default.svc.cluster.local:9000
           predicates:
             - Path=/user-service/login
             - Method=POST
           filters:
             - RewritePath=/user-service/(?<segment>.*),/$\{segment}
         - id: user-service
-          uri: lb://USER-SERVICE
+          uri: http://user-service.default.svc.cluster.local:9000
           predicates:
             - Path=/user-service/reissue
             - Method=GET
           filters:
             - RewritePath=/user-service/(?<segment>.*),/$\{segment}
         - id: user-service
-          uri: lb://USER-SERVICE
+          uri: http://user-service.default.svc.cluster.local:9000
           predicates:
             - Path=/user-service/logout
             - Method=POST
           filters:
             - RewritePath=/user-service/(?<segment>.*),/$\{segment}
         - id: user-service
-          uri: lb://USER-SERVICE
+          uri: http://user-service.default.svc.cluster.local:9000
           predicates:
             - Path=/user-service/auth/reissue
             - Method=GET
           filters:
             - RewritePath=/user-service/(?<segment>.*),/$\{segment}
         - id: user-service
-          uri: lb://USER-SERVICE
+          uri: http://user-service.default.svc.cluster.local:9000
           predicates:
             - Path=/user-service/oauth2/authorization/*
           filters:
             - RewritePath=/user-service/(?<segment>.*),/$\{segment}
         - id: user-service
-          uri: lb://USER-SERVICE
+          uri: http://user-service.default.svc.cluster.local:9000
           predicates:
             - Path=/user-service/*/oauth2/code/*
           filters:
             - RewritePath=/user-service/(?<segment>.*),/$\{segment}
         - id: user-service
-          uri: lb://USER-SERVICE
+          uri: http://user-service.default.svc.cluster.local:9000
           predicates:
             - Path=/user-service/**
           filters:
