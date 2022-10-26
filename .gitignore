@@ -206,14 +206,7 @@ $RECYCLE.BIN/
 
 ### Gradle ###
 .gradle
-**/build/classes
-**/build/generated
-**/build/reports
-**/build/resources
-**/build/test-results
-**/build/tmp
-**/build/bootJarMainClassName
-**/build/bootRunMainClassName
+build/
 !src/**/build/
 
 # Ignore Gradle GUI config
